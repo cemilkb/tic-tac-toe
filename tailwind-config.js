@@ -1,6 +1,11 @@
 tailwind.config = {
   theme: {
     extend: {
+      fontFamily:{
+        alumni: "'Alumni Sans Collegiate One', sans-serif",
+        blackops: "'Black Ops One', sans-serif",
+        prompt:"'Prompt', sans-serif",
+      },
       colors: {
         navy: "#190482",
         navy2: "#7752FE",
@@ -15,6 +20,8 @@ tailwind.config = {
         green: "#33BBC5",
         green2: "#85E6C5",
         green3: "#C8FFE0",
+        x: "#FCE22A",
+        o: "#16FF00",
       }
     }
   }

@@ -10,11 +10,61 @@
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="tailwind-config.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Collegiate+One&family=Black+Ops+One&family=Prompt&display=swap"
+        rel="stylesheet">
 </head>
 
-<body  class="h-screen w-screen max-h-screen max-w-screen overflow-hidden">
+<body class="h-screen w-screen max-h-screen max-w-screen overflow-hidden flex flex-col items-center justify-center">
 
-   
+    <div>
+        <p class="font-blackops text-center"><span class="text-5xl text-x">X</span> <span
+                class="text-5xl text-o">O</span></p>
+        <p class="mb-5 font-blackops text-5xl text-ice"> Game</p>
+    </div>
+
+    <!-- Choosing Side -->
+    <div class=" bg-navy/[0.3] rounded font-prompt font-bold px-3   py-7">
+        <p class="text-2xl text-center text-orange">Remember X go first</p>
+        <p class="text-center m-3 text-3xl font-blackops text-white">CHOOSE:</p>
+        <div class="chose-div flex justify-center gap-4">
+            <!-- X Player -->
+            <div class=" bg-white/[.1]  p-3  rounded " id="x-choose">
+                <p class="text-center font-blackops text-x text-4xl">X </p>
+                <p class="text-ice2 text-lg">Name:</p>
+                <input type="text" class="w-36 text-lg px-1 outline-ice2 rounded" name="" id="">
+                <div class="ia-player py-3">
+                    <button
+                        class="x-player  text-xl bg-black/[.1] font-prompt  rounded px-2 text-x hover:bg-x/[.7] hover:text-navy
+                        shadow-black/[0.6] shadow-md  hover:shadow-x/[.6] hover:scale-110 transition-all duration-500 ">Player</button>
+                    <button
+                        class="x-ai text-xl  bg-black/[.1] font-prompt ml-2 rounded px-2 text-x hover:bg-x/[.7] hover:text-navy
+                        shadow-black/[0.6] shadow-md  hover:shadow-x/[.6] hover:scale-110 transition-all duration-500 ">Ai</button>
+                </div>
+            </div>
+            <!-- Y Player-->
+            <div class=" bg-white/[.1]  p-3  rounded " id="y-choose">
+                <p class="text-center font-blackops text-o text-4xl">O </p>
+                <p class="text-ice2 text-lg">Name:</p>
+                <input type="text" class="w-36 text-lg px-1 outline-ice2 rounded " name="" id="">
+                <div class="ia-player py-3">
+                    <button
+                        class="y-player  text-xl bg-black/[.1] font-prompt  rounded px-2 text-o hover:bg-o/[.7] 
+                        hover:text-navy shadow-black/[0.6] shadow-md hover:shadow-o/[.6] hover:scale-110 transition-all duration-500  ">Player</button>
+                    <button
+                        class="y-ai text-xl  bg-black/[.1] font-prompt ml-2  rounded px-2 text-o hover:bg-o/[.7] 
+                        hover:text-navy shadow-black/[0.6] shadow-md  hover:shadow-o/[.6] hover:scale-110 transition-all duration-500">Ai</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Button -->
+    <button class="bg-orange rounded p-1 px-2 text-2xl rounded font-prompt mt-4 text-navy font-bold hover:scale-110 transition-all duration-500">Start
+        Game</button>
 
     <!-- Script -->
     <script src="script.js"></script>
