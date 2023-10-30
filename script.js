@@ -57,6 +57,7 @@ gameStartButton.addEventListener("click", () => {
         }, 500)
         xName.textContent = xNameInput.value
         oName.textContent = oNameInput.value
+        play()
     } else { alert("NAAPTIN SEN YEĞEN YAW") }
 })
 
@@ -79,26 +80,44 @@ homeButton.addEventListener("click", () => {
 
 let boardAreas = document.querySelectorAll(".area")
 
+let gameMove = 0
 
-
-function play(wichIs) {
+function play() {
+    let wich = "x"
     boardAreas.forEach((e) => {
+       if(e.id == "yok"){
+        console.log("yess bea")
+       }else{
         function over() {
             e.classList.add("bg-[red]")
             e.addEventListener("click", adding)
+            if(gameMove%2==0){
+                wich = "x"
+            }
+            else{
+                wich = "o"
+            }
         }
         function out() {
             e.classList.remove("bg-[red]")
             e.removeEventListener("click", adding)
         }
         function adding() {
-            e.innerHTML = `<span class="text-[70px] text-${wichIs} font-blackops">${wichIs.toUpperCase()}</span>`
+            e.innerHTML = `<span class="text-[70px] text-${wich} font-blackops">${wich.toUpperCase()}</span>`
             console.log(e.id.split("-"))
             e.removeEventListener("mouseover", over)
+            e.setAttribute("id","yok")
+            console.log(e.id)
+            gameMove++
+            if(gameMove >= 9){
+                alert("kes")
+            }
         }
         e.addEventListener("mouseover", over)
         e.addEventListener("mouseout", out)
+       }
     })
 }
 
-play("x")
+
+
