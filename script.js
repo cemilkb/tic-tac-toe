@@ -75,17 +75,30 @@ homeButton.addEventListener("click", () => {
     }, 500)
 })
 
-let deneme = document.querySelectorAll(".area")
+// Game
 
-deneme.forEach((e)=>{
-    e.addEventListener("mouseover", ()=>{
-        e.classList.add("bg-[red]")
+let boardAreas = document.querySelectorAll(".area")
+
+
+
+function play(wichIs) {
+    boardAreas.forEach((e) => {
+        function over() {
+            e.classList.add("bg-[red]")
+            e.addEventListener("click", adding)
+        }
+        function out() {
+            e.classList.remove("bg-[red]")
+            e.removeEventListener("click", adding)
+        }
+        function adding() {
+            e.innerHTML = `<span class="text-[70px] text-${wichIs} font-blackops">${wichIs.toUpperCase()}</span>`
+            console.log(e.id.split("-"))
+            e.removeEventListener("mouseover", over)
+        }
+        e.addEventListener("mouseover", over)
+        e.addEventListener("mouseout", out)
     })
-    e.addEventListener("mouseout", ()=>{
-        e.classList.remove("bg-[red]")
-    })
-    e.addEventListener("click", ()=>{
-        e.innerHTML = `<span class="text-[70px] text-x font-blackops">X</span>`
-        console.log(e.id)
-    })
-})
+}
+
+play("x")
