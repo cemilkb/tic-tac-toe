@@ -57,8 +57,7 @@ gameStartButton.addEventListener("click", () => {
         }, 500)
         xName.textContent = xNameInput.value
         oName.textContent = oNameInput.value
-        play()
-    } else { alert("NAAPTIN SEN YEĞEN YAW") }
+    } else { alert("Choose for both side ai or player") }
 })
 
 // Back To Home
@@ -79,45 +78,123 @@ homeButton.addEventListener("click", () => {
 // Game
 
 let boardAreas = document.querySelectorAll(".area")
+let turn = document.getElementById("turn")
 
-let gameMove = 0
+// Board
 
-function play() {
-    let wich = "x"
+let board = {
+    a: ["", "", ""],
+    b: ["", "", ""],
+    c: ["", "", ""],
+}
+
+// clicking
+
+playerChoice = "x"
+
+clickArea(playerChoice)
+
+function clickArea(playerChoice) {
     boardAreas.forEach((e) => {
-       if(e.id == "yok"){
-        console.log("yess bea")
-       }else{
-        function over() {
-            e.classList.add("bg-[red]")
-            e.addEventListener("click", adding)
-            if(gameMove%2==0){
-                wich = "x"
-            }
-            else{
-                wich = "o"
-            }
+        let lookBoard = e.id.split("-")
+        let first = lookBoard[0]
+        let second = lookBoard[1]
+
+        if (board[first][second] == "") {
+            e.addEventListener("click", () => {
+                let lookBoard = e.id.split("-")
+                let first = lookBoard[0]
+                let second = lookBoard[1]
+
+                board[first][second] = playerChoice
+                makeMove()
+
+            })
         }
-        function out() {
-            e.classList.remove("bg-[red]")
-            e.removeEventListener("click", adding)
-        }
-        function adding() {
-            e.innerHTML = `<span class="text-[70px] text-${wich} font-blackops">${wich.toUpperCase()}</span>`
-            console.log(e.id.split("-"))
-            e.removeEventListener("mouseover", over)
-            e.setAttribute("id","yok")
-            console.log(e.id)
-            gameMove++
-            if(gameMove >= 9){
-                alert("kes")
-            }
-        }
-        e.addEventListener("mouseover", over)
-        e.addEventListener("mouseout", out)
-       }
+
+
     })
+    turn.innerHTML = `${playerChoice.toUpperCase()} Turn`
+    setTimeout(winDraw, 500)
 }
 
 
+boardAreas.forEach((e) => {
+    e.addEventListener("click", () => {
+        if (playerChoice == "x") {
+            playerChoice = "o"
+            clickArea(playerChoice)
+        } else {
+            playerChoice = "x"
+            clickArea(playerChoice)
+        }
+    })
+})
 
+// make a move
+function makeMove() {
+    for (let i = 0; i < 9; i++) {
+
+        if (i <= 2) {
+            boardAreas[i].innerHTML = `<span class="text-[70px] text-${board.a[i]} font-blackops">${board.a[i].toUpperCase()}</span>`
+        } else if (i <= 5) {
+            boardAreas[i].innerHTML = `<span class="text-[70px] text-${board.b[i - 3]} font-blackops">${board.b[i - 3].toUpperCase()}</span>`
+        } else {
+            boardAreas[i].innerHTML = `<span class="text-[70px] text-${board.c[i - 6]} font-blackops">${board.c[i - 6].toUpperCase()}</span>`
+        }
+
+    }
+
+}
+
+// Area Hover   
+function areaHover() {
+    boardAreas.forEach((e) => {
+        let lookBoard = e.id.split("-")
+        let first = lookBoard[0]
+        let second = lookBoard[1]
+        function over() {
+            e.classList.add("bg-[red]")
+        }
+        if (board[first][second] == "") {
+            e.addEventListener("mouseover", over)
+            e.addEventListener("click", () => {
+                e.removeEventListener("mouseover", over)
+            })
+            e.addEventListener("mouseout", () => {
+                e.classList.remove("bg-[red]")
+            })
+        }
+
+    })
+}
+
+areaHover()
+
+// Who is win or is draw
+
+let dialog = document.getElementById("diyalog")
+let closeDialog = document.getElementById("close-diyalog")
+
+function winDraw() {
+    if (board.a[0] != "" && board.a[1] != "" && board.a[2] != "" && board.b[0] != "" && board.b[1] != "" && board.b[2] != ""
+        && board.c[0] != "" && board.c[1] != "" && board.c[2] != "") {
+        dialog.showModal();
+    }
+}
+
+
+closeDialog.addEventListener("click", () => {
+
+    board = {
+        a: ["", "", ""],
+        b: ["", "", ""],
+        c: ["", "", ""],
+    }
+
+    makeMove()
+    areaHover()
+    turn.innerHTML = "X Turn"
+
+    dialog.close()
+})

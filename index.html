@@ -101,17 +101,21 @@
         <!-- Container Game Are -->
         <div class=" w-screen flex flex-col justify-center items-center">
             <!-- Turn -->
-            <p class="bg-navy/[.3] sdw font-prompt  text-2xl p-1 rounded text-orange my-8 text-center w-max">X Turn</p>
+            <p class="bg-navy/[.3] sdw font-prompt  text-2xl p-1 rounded text-orange my-8 text-center w-max" id="turn">X
+                Turn</p>
 
             <!-- Board -->
             <div id="game-board" class="grid grid-cols-3 gap-2 w-[300px] mx-auto">
+                <div class="flex justify-center h-[80px] items-center sdw rounded bg-ice/[.3] area" id="a-0">
+
+                </div>
                 <div class="flex justify-center h-[80px] items-center sdw rounded bg-ice/[.3] area" id="a-1">
 
                 </div>
                 <div class="flex justify-center h-[80px] items-center sdw rounded bg-ice/[.3] area" id="a-2">
 
                 </div>
-                <div class="flex justify-center h-[80px] items-center sdw rounded bg-ice/[.3] area" id="a-3">
+                <div class="flex justify-center h-[80px] items-center sdw rounded bg-ice/[.3] area" id="b-0">
 
                 </div>
                 <div class="flex justify-center h-[80px] items-center sdw rounded bg-ice/[.3] area" id="b-1">
@@ -120,16 +124,13 @@
                 <div class="flex justify-center h-[80px] items-center sdw rounded bg-ice/[.3] area" id="b-2">
 
                 </div>
-                <div class="flex justify-center h-[80px] items-center sdw rounded bg-ice/[.3] area" id="b-3">
+                <div class="flex justify-center h-[80px] items-center sdw rounded bg-ice/[.3] area" id="c-0">
 
                 </div>
                 <div class="flex justify-center h-[80px] items-center sdw rounded bg-ice/[.3] area" id="c-1">
 
                 </div>
                 <div class="flex justify-center h-[80px] items-center sdw rounded bg-ice/[.3] area" id="c-2">
-
-                </div>
-                <div class="flex justify-center h-[80px] items-center sdw rounded bg-ice/[.3] area" id="c-3">
 
                 </div>
             </div>
@@ -156,6 +157,11 @@
         </div>
 
     </div>
+
+    <dialog id="diyalog">
+        <button id="close-diyalog">Close</button>
+        <p>This modal dialog has a groovy backdrop!</p>
+    </dialog>
 
     <!-- Script -->
     <script src="script.js"></script>
