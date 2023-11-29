@@ -122,7 +122,19 @@ boardAreas.forEach((e) => {
 
 
 // Is Game finish ?
+
+let drawScore = document.getElementById("draw-score")
+let xScore = document.getElementById("X-score")
+let oScore = document.getElementById("O-score")
+
+draw = 0
+o = 0
+x = 0
+
+// Draw section
+
 function alrt() {
+    drawScore.innerHTML = `Score:${draw}`
     alert("Game is finished")
     boardAreas.forEach((e) => {
         e.innerHTML = ""
@@ -132,13 +144,45 @@ boardAreas.forEach((e) => {
     e.addEventListener("click", () => {
         if (isFinish == 9) {
             isFinish = 0
-            setTimeout(alrt, 500)
+            draw++
             gameBoard = {
                 a: ["", "", ""],
                 b: ["", "", ""],
                 c: ["", "", ""],
             }
+            setTimeout(alrt, 100)
 
         }
     })
+})
+
+// Buttons
+
+let resButton = document.getElementById("restart-button")
+let clrButton = document.getElementById("clear-button")
+
+resButton.addEventListener("click", () => {
+    drawScore.innerHTML = `Score:0`
+    xScore.innerHTML = `Score:0`
+    oScore.innerHTML = `Score:0`
+    gameBoard = {
+        a: ["", "", ""],
+        b: ["", "", ""],
+        c: ["", "", ""],
+    }
+    boardAreas.forEach((e) => {
+        e.innerHTML = ""
+    })
+    isFinish = 0
+})
+clrButton.addEventListener("click", () => { 
+    gameBoard = {
+        a: ["", "", ""],
+        b: ["", "", ""],
+        c: ["", "", ""],
+    }
+    boardAreas.forEach((e) => {
+        e.innerHTML = ""
+    })
+    isFinish = 0
 })
