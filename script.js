@@ -156,7 +156,8 @@ winning = false
 function xWin() {
     ++x
     xScore.innerHTML = `Score:${x}`
-    alert(`${xName.textContent} Win`)
+    dialog.showModal()
+    result.innerHTML = `${xName.textContent} Win!!!`
     boardAreas.forEach((e) => {
         e.innerHTML = ""
     })
@@ -175,8 +176,9 @@ function xWin() {
 
 function oWin() {
     ++o
-    xScore.innerHTML = `Score:${o}`
-    alert(`${oName.textContent} Win`)
+    oScore.innerHTML = `Score:${o}`
+    dialog.showModal()
+    result.innerHTML = `${oName.textContent} Win!!!`
     boardAreas.forEach((e) => {
         e.innerHTML = ""
     })
@@ -196,7 +198,8 @@ function oWin() {
 function drawWin() {
     draw++
     drawScore.innerHTML = `Score:${draw}`
-    alert("Game is finished as Draw")
+    dialog.showModal()
+    result.innerHTML = "Game is over with 'Tie'!!!"
     boardAreas.forEach((e) => {
         e.innerHTML = ""
     })
@@ -238,6 +241,13 @@ boardAreas.forEach((e) => {
     })
 })
 
+// Modal
 
+const dialog = document.querySelector("dialog")
+const closeButton = document.getElementById("close-diyalog")
+const result = document.getElementById("inside-modal")
 
-
+closeButton.addEventListener("click", ()=>{
+    dialog.close()
+    winning = false
+})
