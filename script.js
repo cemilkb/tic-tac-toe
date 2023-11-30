@@ -148,7 +148,7 @@ function makeMove() {
 }
 
 // Area Hover   
-function areaHover() {
+(function areaHover() {
     boardAreas.forEach((e) => {
         let lookBoard = e.id.split("-")
         let first = lookBoard[0]
@@ -167,9 +167,9 @@ function areaHover() {
         }
 
     })
-}
+})()
 
-areaHover()
+
 
 // Who is win or is draw
 
