@@ -129,33 +129,9 @@ draw = 0
 o = 0
 x = 0
 
-// Draw section
-
-function alrt() {
-    draw++
-    drawScore.innerHTML = `Score:${draw}`
-    alert("Game is finished")
-    boardAreas.forEach((e) => {
-        e.innerHTML = ""
-    })
-    gameBoard = {
-        a: ["", "", ""],
-        b: ["", "", ""],
-        c: ["", "", ""],
-    }
-    isFinish = 0
-    move = "x"
-}
-boardAreas.forEach((e) => {
-    e.addEventListener("click", () => {
-        if (isFinish == 9) {
-            setTimeout(alrt, 100)
-        }
-    })
-})
-
-
 // X win
+
+winning = false
 
 function xWin() {
     ++x
@@ -171,6 +147,7 @@ function xWin() {
     }
     isFinish = 0
     move = "x"
+    winning = true
 }
 function oWin() {
     ++o
@@ -186,6 +163,7 @@ function oWin() {
     }
     isFinish = 0
     move = "x"
+    winning = true
 }
 
 boardAreas.forEach((e) => {
@@ -210,6 +188,27 @@ boardAreas.forEach((e) => {
             gameBoard.a[0] == "o" && gameBoard.b[1] == "o" && gameBoard.c[2] == "o" || gameBoard.c[0] == "o" && gameBoard.b[1] == "o" && gameBoard.a[2] == "o"
         ) {
             setTimeout(oWin, 100)
+        } else if (isFinish == 9 && winning == false ) {
+            setTimeout(alrt, 100)
         }
     })
 })
+
+// Draw section
+function alrt() {
+    draw++
+    drawScore.innerHTML = `Score:${draw}`
+    alert("Game is finished")
+    boardAreas.forEach((e) => {
+        e.innerHTML = ""
+    })
+    gameBoard = {
+        a: ["", "", ""],
+        b: ["", "", ""],
+        c: ["", "", ""],
+    }
+    isFinish = 0
+    move = "x"
+}
+
+
