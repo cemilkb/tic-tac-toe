@@ -98,14 +98,12 @@ boardAreas.forEach((e) => {
                 gameBoard[sId[0]][sId[1]] = move
                 move = "o"
                 isFinish++
-                console.log(isFinish)
             }
         } else {
             if (gameBoard[sId[0]][sId[1]] == "") {
                 gameBoard[sId[0]][sId[1]] = move
                 move = "x"
                 isFinish++
-                console.log(isFinish)
             }
         }
     })
@@ -134,90 +132,84 @@ x = 0
 // Draw section
 
 function alrt() {
+    draw++
     drawScore.innerHTML = `Score:${draw}`
     alert("Game is finished")
     boardAreas.forEach((e) => {
         e.innerHTML = ""
     })
-}
-boardAreas.forEach((e) => {
-    e.addEventListener("click", () => {
-        if (isFinish == 9) {
-            isFinish = 0
-            draw++
-            gameBoard = {
-                a: ["", "", ""],
-                b: ["", "", ""],
-                c: ["", "", ""],
-            }
-            setTimeout(alrt, 100)
-
-        }
-    })
-})
-
-// make a move
-function makeMove() {
-    for (let i = 0; i < 9; i++) {
-
-        if (i <= 2) {
-            boardAreas[i].innerHTML = `<span class="text-[70px] text-${board.a[i]} font-blackops">${board.a[i].toUpperCase()}</span>`
-        } else if (i <= 5) {
-            boardAreas[i].innerHTML = `<span class="text-[70px] text-${board.b[i - 3]} font-blackops">${board.b[i - 3].toUpperCase()}</span>`
-        } else {
-            boardAreas[i].innerHTML = `<span class="text-[70px] text-${board.c[i - 6]} font-blackops">${board.c[i - 6].toUpperCase()}</span>`
-        }
-
-    }
-
-}
-
-// Area Hover   
-function areaHover() {
-    boardAreas.forEach((e) => {
-        let lookBoard = e.id.split("-")
-        let first = lookBoard[0]
-        let second = lookBoard[1]
-        function over() {
-            e.classList.add("bg-[red]")
-        }
-        if (board[first][second] == "") {
-            e.addEventListener("mouseover", over)
-            e.addEventListener("click", () => {
-                e.removeEventListener("mouseover", over)
-            })
-            e.addEventListener("mouseout", () => {
-                e.classList.remove("bg-[red]")
-            })
-        }
-
-    })
-}
-
-areaHover()
-
-// Who is win or is draw
-
-let dialog = document.getElementById("diyalog")
-let closeDialog = document.getElementById("close-diyalog")
-
-function winDraw() {
-    if (board.a[0] != "" && board.a[1] != "" && board.a[2] != "" && board.b[0] != "" && board.b[1] != "" && board.b[2] != ""
-        && board.c[0] != "" && board.c[1] != "" && board.c[2] != "") {
-        dialog.showModal();
-    }
-}
-
-
-closeDialog.addEventListener("click", () => {
-
-    board = {
+    gameBoard = {
         a: ["", "", ""],
         b: ["", "", ""],
         c: ["", "", ""],
     }
+    isFinish = 0
+    move = "x"
+}
+boardAreas.forEach((e) => {
+    e.addEventListener("click", () => {
+        if (isFinish == 9) {
+            setTimeout(alrt, 100)
+        }
+    })
+})
+
+
+// X win
+
+function xWin() {
+    ++x
+    xScore.innerHTML = `Score:${x}`
+    alert("X win")
     boardAreas.forEach((e) => {
         e.innerHTML = ""
     })
+    gameBoard = {
+        a: ["", "", ""],
+        b: ["", "", ""],
+        c: ["", "", ""],
+    }
     isFinish = 0
+    move = "x"
+}
+function oWin() {
+    ++o
+    xScore.innerHTML = `Score:${o}`
+    alert("O win")
+    boardAreas.forEach((e) => {
+        e.innerHTML = ""
+    })
+    gameBoard = {
+        a: ["", "", ""],
+        b: ["", "", ""],
+        c: ["", "", ""],
+    }
+    isFinish = 0
+    move = "x"
+}
+
+boardAreas.forEach((e) => {
+    e.addEventListener("click", () => {
+        if (//vertical
+            gameBoard.a[0] == "x" && gameBoard.b[0] == "x" && gameBoard.c[0] == "x" || gameBoard.a[1] == "x" && gameBoard.b[1] == "x" && gameBoard.c[1] == "x"
+            || gameBoard.a[2] == "x" && gameBoard.b[2] == "x" && gameBoard.c[2] == "x" ||
+            //Horizontal
+            gameBoard.a[0] == "x" && gameBoard.a[1] == "x" && gameBoard.a[2] == "x" || gameBoard.b[0] == "x" && gameBoard.b[1] == "x" && gameBoard.b[2] == "x"
+            || gameBoard.c[0] == "x" && gameBoard.c[1] == "x" && gameBoard.c[2] == "x" ||
+            //Cross
+            gameBoard.a[0] == "x" && gameBoard.b[1] == "x" && gameBoard.c[2] == "x" || gameBoard.c[0] == "x" && gameBoard.b[1] == "x" && gameBoard.a[2] == "x") {
+            setTimeout(xWin, 100)
+        } else if (
+            //vertical
+            gameBoard.a[0] == "o" && gameBoard.b[0] == "o" && gameBoard.c[0] == "o" || gameBoard.a[1] == "o" && gameBoard.b[1] == "o" && gameBoard.c[1] == "o"
+            || gameBoard.a[2] == "o" && gameBoard.b[2] == "o" && gameBoard.c[2] == "o" ||
+            //Horizontal
+            gameBoard.a[0] == "o" && gameBoard.a[1] == "o" && gameBoard.a[2] == "o" || gameBoard.b[0] == "o" && gameBoard.b[1] == "o" && gameBoard.b[2] == "o"
+            || gameBoard.c[0] == "o" && gameBoard.c[1] == "o" && gameBoard.c[2] == "o" ||
+            //Cross
+            gameBoard.a[0] == "o" && gameBoard.b[1] == "o" && gameBoard.c[2] == "o" || gameBoard.c[0] == "o" && gameBoard.b[1] == "o" && gameBoard.a[2] == "o"
+        ) {
+            setTimeout(oWin, 100)
+        }
+    })
 })
