@@ -44,6 +44,7 @@ const xNameInput = document.getElementById("x-name-input")
 const oNameInput = document.getElementById("o-name-input")
 const xName = document.getElementById("x-name")
 const oName = document.getElementById("o-name")
+const turnArea = document.getElementById("turn")
 
 gameStartButton.addEventListener("click", () => {
     if (isChooseO == true && isChooseX == true) {
@@ -58,7 +59,24 @@ gameStartButton.addEventListener("click", () => {
         xName.textContent = xNameInput.value
         oName.textContent = oNameInput.value
     } else { alert("NAAPTIN SEN YEĞEN YAW") }
+
+    // GAME SETUP
+
+   boardAreas.forEach((e) => {
+        e.innerHTML = ""
+    })
+    gameBoard = {
+        a: ["", "", ""],
+        b: ["", "", ""],
+        c: ["", "", ""],
+    }
+    isFinish = 0
+    move = "x"
+    winning = false
+    turnArea.textContent = `${xName.textContent} turn `
 })
+
+
 
 // Back To Home
 
@@ -98,12 +116,14 @@ boardAreas.forEach((e) => {
                 gameBoard[sId[0]][sId[1]] = move
                 move = "o"
                 isFinish++
+                turnArea.textContent = `${oName.textContent} turn`
             }
         } else {
             if (gameBoard[sId[0]][sId[1]] == "") {
                 gameBoard[sId[0]][sId[1]] = move
                 move = "x"
                 isFinish++
+                turnArea.textContent = `${xName.textContent} turn `
             }
         }
     })
@@ -136,7 +156,7 @@ winning = false
 function xWin() {
     ++x
     xScore.innerHTML = `Score:${x}`
-    alert("X win")
+    alert(`${xName.textContent} Win`)
     boardAreas.forEach((e) => {
         e.innerHTML = ""
     })
@@ -148,11 +168,15 @@ function xWin() {
     isFinish = 0
     move = "x"
     winning = true
+    turnArea.textContent = `${xName.textContent} turn `
 }
+
+// O Win
+
 function oWin() {
     ++o
     xScore.innerHTML = `Score:${o}`
-    alert("O win")
+    alert(`${oName.textContent} Win`)
     boardAreas.forEach((e) => {
         e.innerHTML = ""
     })
@@ -164,6 +188,26 @@ function oWin() {
     isFinish = 0
     move = "x"
     winning = true
+    turnArea.textContent = `${xName.textContent} turn `
+}
+
+// Draw
+
+function drawWin() {
+    draw++
+    drawScore.innerHTML = `Score:${draw}`
+    alert("Game is finished as Draw")
+    boardAreas.forEach((e) => {
+        e.innerHTML = ""
+    })
+    gameBoard = {
+        a: ["", "", ""],
+        b: ["", "", ""],
+        c: ["", "", ""],
+    }
+    isFinish = 0
+    move = "x"
+    turnArea.textContent = `${xName.textContent} turn `
 }
 
 boardAreas.forEach((e) => {
@@ -188,27 +232,12 @@ boardAreas.forEach((e) => {
             gameBoard.a[0] == "o" && gameBoard.b[1] == "o" && gameBoard.c[2] == "o" || gameBoard.c[0] == "o" && gameBoard.b[1] == "o" && gameBoard.a[2] == "o"
         ) {
             setTimeout(oWin, 100)
-        } else if (isFinish == 9 && winning == false ) {
-            setTimeout(alrt, 100)
+        } else if (isFinish == 9 && winning == false) {
+            setTimeout(drawWin, 100)
         }
     })
 })
 
-// Draw section
-function alrt() {
-    draw++
-    drawScore.innerHTML = `Score:${draw}`
-    alert("Game is finished")
-    boardAreas.forEach((e) => {
-        e.innerHTML = ""
-    })
-    gameBoard = {
-        a: ["", "", ""],
-        b: ["", "", ""],
-        c: ["", "", ""],
-    }
-    isFinish = 0
-    move = "x"
-}
+
 
 
