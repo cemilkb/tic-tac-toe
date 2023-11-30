@@ -57,7 +57,7 @@ gameStartButton.addEventListener("click", () => {
         }, 500)
         xName.textContent = xNameInput.value
         oName.textContent = oNameInput.value
-    } else { alert("Choose for both side ai or player") }
+    } else { alert("NAAPTIN SEN YEĞEN YAW") }
 })
 
 // Back To Home
@@ -78,55 +78,80 @@ homeButton.addEventListener("click", () => {
 // Game
 
 let boardAreas = document.querySelectorAll(".area")
-let turn = document.getElementById("turn")
 
-// Board
-
-let board = {
+let gameBoard = {
     a: ["", "", ""],
     b: ["", "", ""],
     c: ["", "", ""],
 }
 
-// clicking
+// move && finish
 
-playerChoice = "x"
-
-clickArea(playerChoice)
-
-function clickArea(playerChoice) {
-    boardAreas.forEach((e) => {
-        let lookBoard = e.id.split("-")
-        let first = lookBoard[0]
-        let second = lookBoard[1]
-
-        if (board[first][second] == "") {
-            e.addEventListener("click", () => {
-                let lookBoard = e.id.split("-")
-                let first = lookBoard[0]
-                let second = lookBoard[1]
-
-                board[first][second] = playerChoice
-                makeMove()
-
-            })
-        }
-
-
-    })
-    turn.innerHTML = `${playerChoice.toUpperCase()} Turn`
-    setTimeout(winDraw, 500)
-}
-
+let move = "x"
+let isFinish = 0
 
 boardAreas.forEach((e) => {
+    let sId = e.id.split("-")
     e.addEventListener("click", () => {
-        if (playerChoice == "x") {
-            playerChoice = "o"
-            clickArea(playerChoice)
+        if (move == "x") {
+            if (gameBoard[sId[0]][sId[1]] == "") {
+                gameBoard[sId[0]][sId[1]] = move
+                move = "o"
+                isFinish++
+                console.log(isFinish)
+            }
         } else {
-            playerChoice = "x"
-            clickArea(playerChoice)
+            if (gameBoard[sId[0]][sId[1]] == "") {
+                gameBoard[sId[0]][sId[1]] = move
+                move = "x"
+                isFinish++
+                console.log(isFinish)
+            }
+        }
+    })
+})
+
+// Board change
+
+boardAreas.forEach((e) => {
+    let sId = e.id.split("-")
+    e.addEventListener("click", () => {
+        e.innerHTML = `<span class="text-[70px] text-${gameBoard[sId[0]][sId[1]]} font-blackops">${gameBoard[sId[0]][sId[1]].toUpperCase()}</span>`
+    })
+})
+
+
+// Is Game finish ?
+
+let drawScore = document.getElementById("draw-score")
+let xScore = document.getElementById("X-score")
+let oScore = document.getElementById("O-score")
+
+draw = 0
+o = 0
+x = 0
+
+// Draw section
+
+function alrt() {
+    drawScore.innerHTML = `Score:${draw}`
+    alert("Game is finished")
+    boardAreas.forEach((e) => {
+        e.innerHTML = ""
+    })
+}
+boardAreas.forEach((e) => {
+    e.addEventListener("click", () => {
+        if (isFinish == 9) {
+            isFinish = 0
+            draw++
+            gameBoard = {
+                a: ["", "", ""],
+                b: ["", "", ""],
+                c: ["", "", ""],
+            }
+            setTimeout(alrt, 100)
+
         }
     })
 })
@@ -148,7 +173,7 @@ function makeMove() {
 }
 
 // Area Hover   
-(function areaHover() {
+function areaHover() {
     boardAreas.forEach((e) => {
         let lookBoard = e.id.split("-")
         let first = lookBoard[0]
@@ -167,9 +192,9 @@ function makeMove() {
         }
 
     })
-})()
+}
 
-
+areaHover()
 
 // Who is win or is draw
 
@@ -191,10 +216,8 @@ closeDialog.addEventListener("click", () => {
         b: ["", "", ""],
         c: ["", "", ""],
     }
-
-    makeMove()
-    areaHover()
-    turn.innerHTML = "X Turn"
-
-    dialog.close()
+    boardAreas.forEach((e) => {
+        e.innerHTML = ""
+    })
+    isFinish = 0
 })
