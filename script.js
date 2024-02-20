@@ -134,9 +134,17 @@ let playerO = game.makePlayer(game.oName, game.oIsHuman, game.oXo)
 
 
 //game.start(playerX)   
-game.start(playerX)
+
 
 console.log(playerX)
 console.log(playerO)
 
 //game.moveX()
+
+let gameBoard = [
+    "", "", "",
+    "", "a", "",
+    "", "", ""
+]
+
+console.log(gameBoard.indexOf("a"))
