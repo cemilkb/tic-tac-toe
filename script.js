@@ -16,17 +16,29 @@ let game = {
             this.count++
         }
     },
-    humanPlay: function (wich) {
-        let get = prompt(`0-8 arası bir sayı giriniz`)
-        game.gameBoard[get] = wich
-        game.aiCanChoose.splice(choose, 1)
+    isEmpty: function (wich) {
+        if (this.gameBoard[wich] == "") {
+            return true
+        }
+        return false
     },
-    aiCanChoose: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    humanPlay: function (wich) {
+        let choose = prompt(`0-8 arası bir sayı giriniz`)
+        if (this.isEmpty(choose) == true) {
+            game.gameBoard[choose] = wich
+        } else {
+            alert("Girdiğiniz alan doludur yeni bir sayı girin")
+            return this.humanPlay(wich)
+        }
+
+    },
     aiPlay: function (wich) {
-        let choose = Math.floor(Math.random() * game.aiCanChoose.length)
-        let get = game.aiCanChoose[choose]
-        game.gameBoard[get] = wich
-        game.aiCanChoose.splice(choose, 1)
+        let choose = Math.floor(Math.random() * 9)
+        if (this.isEmpty(choose) == true) {
+            game.gameBoard[choose] = wich
+        } else {
+            return this.aiPlay(wich)
+        }
     },
     makePlayer: function (name, isHuman, xo) {
         let humanPlay = this.humanPlay
