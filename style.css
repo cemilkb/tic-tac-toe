@@ -1,8 +1,60 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
 }
 
-body{
+body {
     background-color: black;
+    color: white;
+}
+
+.heading {
+    color: white;
+    text-align: center;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.choose-section {
+    display: flex;
+    justify-content: space-around;
+}
+
+.choose {
+    width: 350px;
+    height: 450px;
+    border: 2px solid white;
+}
+
+.choose>p {
+    text-align: center;
+    margin: 20px 0px;
+    font-size: 50px;
+}
+
+.choose>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+}
+
+.choose>div>input {
+    background-color: hsl(0, 0%, 10%) ;
+    outline: none;
+    color: white;
+    padding: 3px 4px;
+    font-size: 15px;
+    border: 2px dodgerblue hsl(0, 0%, 100%);
+}
+
+.starting {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.starting>button {
+    padding: 2px 10px;
+    font-size: 30px;
 }

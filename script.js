@@ -1,9 +1,18 @@
+(function falan(){
+    
+let a = "cemil"
+let b = "Human"
+let c = "Beyza"
+let d = "Human"
+
+// Game object
+
 let game = {
-    xName: prompt("Name Player X"),
-    xIsHuman: prompt("Player X Human or Ai ?"),
+    xName: a,
+    xIsHuman: b,
     xXo: "X",
-    oName: prompt("Name ="),
-    oIsHuman: prompt("Player O Human or Ai ?"),
+    oName: c,
+    oIsHuman: d,
     oXo: "O",
     gameBoard: [
         "", "", "",
@@ -130,7 +139,6 @@ let game = {
             "", "", "",
             "", "", ""
         ]
-        this.aiCanChoose = [0, 1, 2, 3, 4, 5, 7, 8]
         this.turn.count = 0
         if (wich == "draw") {
             alert("BARABARA")
@@ -155,3 +163,5 @@ console.log(playerO)
 
 //game.moveX()
 
+
+})()
