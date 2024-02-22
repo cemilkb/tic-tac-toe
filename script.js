@@ -1,18 +1,13 @@
 (function falan() {
 
-    let a = "cemil"
-    let b = "Human"
-    let c = "Beyza"
-    let d = "Human"
-
     // Game object
 
     let game = {
-        xName: a,
-        xIsHuman: b,
+        xName: null,
+        xIsHuman: null,
         xXo: "X",
-        oName: c,
-        oIsHuman: d,
+        oName: null,
+        oIsHuman: null,
         oXo: "O",
         gameBoard: [
             "", "", "",
@@ -150,18 +145,101 @@
         }
     }
 
-    let playerX = game.makePlayer(game.xName, game.xIsHuman, game.xXo)
-    let playerO = game.makePlayer(game.oName, game.oIsHuman, game.oXo)
+    // DOM
 
+    let xNameInpt = document.getElementById("x-name")
+    let xHmnBtn = document.getElementById("x-hmn-btn")
+    let xAiBtn = document.getElementById("x-ai-btn")
 
+    let oNameInpt = document.getElementById("o-name")
+    let oHmnBtn = document.getElementById("o-hmn-btn")
+    let oAiBtn = document.getElementById("o-ai-btn")
 
-    //game.start(playerX)   
+    let startBtn = document.getElementById("start")
 
+    // EVENT LISTENER
 
-    console.log(playerX)
-    console.log(playerO)
-    
-    //game.moveX()
+    // for o
+    oHmnBtn.addEventListener("click", () => {
+        if (oNameInpt.value != "") {
+            game.oName = oNameInpt.value
+            game.oIsHuman = "Human"
+            console.log(game.oName)
+            console.log(game.oIsHuman)
+            oHmnBtn.style.backgroundColor = "white"
+            oHmnBtn.style.color = "black"
+            oAiBtn.style.backgroundColor = "black"
+            oAiBtn.style.color = "white"
+        } else {
+            alert("You must be enter a name.")
+        }
+    })
 
+    oAiBtn.addEventListener("click", () => {
+        if (oNameInpt.value != "") {
+            game.oName = oNameInpt.value
+            game.oIsHuman = "Ai"
+            console.log(game.oIsHuman)
+            console.log(game.oName)
+            oAiBtn.style.backgroundColor = "white"
+            oAiBtn.style.color = "black"
+            oHmnBtn.style.backgroundColor = "black"
+            oHmnBtn.style.color = "white"
+        } else {
+            alert("You must be enter a name.")
+        }
+    })
 
+    // for x
+
+    xHmnBtn.addEventListener("click", () => {
+        if (xNameInpt.value != "") {
+            game.xName = xNameInpt.value
+            game.xIsHuman = "Human"
+            console.log(game.xIsHuman)
+            console.log(game.xName)
+            xHmnBtn.style.backgroundColor = "white"
+            xHmnBtn.style.color = "black"
+            xAiBtn.style.backgroundColor = "black"
+            xAiBtn.style.color = "white"
+        } else {
+            alert("You must be enter a name.")
+        }
+    })
+
+    xAiBtn.addEventListener("click", () => {
+        if (xNameInpt.value != "") {
+            game.xName = xNameInpt.value
+            game.xIsHuman = "Ai"
+            console.log(game.xIsHuman)
+            console.log(game.xName)
+            xAiBtn.style.backgroundColor = "white"
+            xAiBtn.style.color = "black"
+            xHmnBtn.style.backgroundColor = "black"
+            xHmnBtn.style.color = "white"
+        } else {
+            alert("You must be enter a name.")
+        }
+    })
+
+    let playerX
+    let playerO
+
+    // START
+    startBtn.addEventListener("click", () => {
+
+        playerX = game.makePlayer(game.xName, game.xIsHuman, game.xXo)
+        playerO = game.makePlayer(game.oName, game.oIsHuman, game.oXo)
+        if (game.xIsHuman != null && game.oIsHuman != null) {
+            game.start(playerX)
+        } else {
+            alert("You must make a choice ai or human for both side")
+        }
+    })
+    /*
+     console.log(xNameInpt)
+     game.start(playerX)
+     let playerX = game.makePlayer(game.xName, game.xIsHuman, game.xXo)
+     let playerO = game.makePlayer(game.oName, game.oIsHuman, game.oXo)
+  */
 })()

@@ -61,7 +61,7 @@ body {
     margin-top: 5px;
 }
 
-.choose-btn{
+.choose-btn {
     display: flex;
     gap: 50px;
 }
@@ -75,7 +75,8 @@ body {
     padding: 5px;
     text-align: center;
     font-size: 15px;
-    
+    transition: all 0.5s;
+
 }
 
 .choose>p {
@@ -134,5 +135,18 @@ body {
     background-color: transparent;
     color: white;
     border: 1px solid white;
+    transition: all 0.4s;
+}
 
+button:hover {
+    box-shadow: 0px 0px 10px 1px white;
+}
+
+button:active {
+    scale: 0.9;
+}
+
+.clicked{
+    background-color: white;
+    color: black;
 }
