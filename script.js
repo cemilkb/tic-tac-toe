@@ -147,6 +147,9 @@
 
     // DOM
 
+    let main = document.querySelector(".main")
+    let gameYard = document.querySelector(".game-yard")
+
     let xNameInpt = document.getElementById("x-name")
     let xHmnBtn = document.getElementById("x-hmn-btn")
     let xAiBtn = document.getElementById("x-ai-btn")
@@ -225,21 +228,50 @@
     let playerX
     let playerO
 
-    // START
+    // START && VANISH
+
     startBtn.addEventListener("click", () => {
 
         playerX = game.makePlayer(game.xName, game.xIsHuman, game.xXo)
         playerO = game.makePlayer(game.oName, game.oIsHuman, game.oXo)
+
         if (game.xIsHuman != null && game.oIsHuman != null) {
-            game.start(playerX)
+
+            main.classList.add("vanish")
+            setTimeout(() => {
+                main.style.display = "none"
+                setTimeout(() => {
+                    gameYard.classList.remove("vanish")
+                }, 100)
+                // game.start(playerX)
+            }, 510);
+
+
         } else {
             alert("You must make a choice ai or human for both side")
         }
+
     })
-    /*
-     console.log(xNameInpt)
-     game.start(playerX)
-     let playerX = game.makePlayer(game.xName, game.xIsHuman, game.xXo)
-     let playerO = game.makePlayer(game.oName, game.oIsHuman, game.oXo)
-  */
+
+    //GAME YARD BUTTONS
+
+    let homeBtn = document.getElementById("home-btn")
+
+    homeBtn.addEventListener("click", () => {
+
+        gameYard.classList.add("vanish")
+        setTimeout(() => {
+            main.style.display = "block"
+            setTimeout(() => {
+                main.classList.remove("vanish")
+            }, 50)
+            // game.start(playerX)
+        }, 500);
+
+
+
+
+    })
+
+
 })()

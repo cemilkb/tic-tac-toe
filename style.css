@@ -6,11 +6,14 @@
 body {
     background-color: black;
     color: white;
+    overflow: hidden;
 }
 
 .main {
     height: 100vh;
     overflow: hidden;
+    opacity: 1;
+    transition: all 0.5s;
 }
 
 .heading {
@@ -146,7 +149,72 @@ button:active {
     scale: 0.9;
 }
 
-.clicked{
+.clicked {
     background-color: white;
     color: black;
+}
+
+.game-yard {
+    height: 100vh;
+    scale: 1;
+    background-color: black;
+    overflow: hidden;
+    transition: all 0.5s;
+    display: grid;
+    grid-template-rows: 10% 70% 20%;
+}
+
+.yard-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20%;
+}
+
+.yard-btn>button {
+    padding: 0.3vw 1vw;
+    font-size: 2vw;
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    transition: all 0.4s;
+    width: 10vw;
+    text-align: center;
+}
+
+.yard-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-area {
+    width: 50%;
+    height: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: 1px solid white;
+}
+
+.game-area>div {
+    border: 1px solid white;
+}
+
+.yard-score {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20%;
+    text-align: center;
+}
+
+
+
+
+
+.vanish {
+    opacity: 0;
+    scale: 0;
 }
