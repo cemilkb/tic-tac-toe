@@ -58,9 +58,9 @@
             })
 
             setTimeout(() => {
-                if (wich == "X" && playerO.isHuman == "Aİ") {
+                if (wich == "X" && playerO.isHuman == "Ai") {
                     this.start(playerO)
-                } else if (wich == "O" && playerX.isHuman == "Aİ") {
+                } else if (wich == "O" && playerX.isHuman == "Ai") {
                     this.start(playerX)
                 }
 
