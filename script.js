@@ -37,8 +37,15 @@
                 })
             }, 100)
 
+            if (wich == "X" && playerO.isHuman == "Ai") {
+                this.start(playerO)
+            } else if (wich == "O" && playerX.isHuman == "Ai") {
+                this.start(playerX)
+            }
+
         },
         aiPlay: function (wich) {
+
             let choose = Math.floor(Math.random() * 9)
             if (this.isEmpty(choose) == true) {
                 game.gameBoard[choose] = wich
@@ -51,14 +58,13 @@
             })
 
             setTimeout(() => {
-                if (wich == "X") {
+                if (wich == "X" && playerO.isHuman == "Aİ") {
                     this.start(playerO)
-                } else {
+                } else if (wich == "O" && playerX.isHuman == "Aİ") {
                     this.start(playerX)
                 }
 
             }, 1000)
-
 
 
         },
@@ -90,6 +96,7 @@
             }
 
         },
+        drawScore: 0,
         isDraw: function () {
             if (this.turn.count < 9) {
                 return false
@@ -106,7 +113,9 @@
                 }
             } else {
                 this.turn.addTurn()
-                this.aiPlay(wich.xo)
+                if (game.isDraw() == false && game.isWin(wich.xo) == false) {
+                    game.aiPlay(wich.xo)
+                }
             }
 
         },
@@ -126,6 +135,7 @@
         },
         start: function (players) {
 
+            this.updateScore()
 
             if (players == playerX) {
 
@@ -139,39 +149,59 @@
 
 
             setTimeout(() => {
-                if (this.isDraw() != true) {
+                if (this.isWin(players.xo) == true) {
+                    this.stop(players)
+                }
+            }, 200)
+            if (this.isWin(players.xo) != true) {
 
-                    if (this.isWin(players.xo) == true) {
+                setTimeout(() => {
 
-                        this.stop(players)
+                    if (this.isDraw() == true) {
+
+                        this.stop("draw")
 
                     }
-                } else { this.stop("draw") }
-            }, 500)
+                }, 400)
+            }
 
+        },
+        updateScore: function () {
+            drawScore.textContent = `Draw: ${this.drawScore}`
+            oScore.textContent = `${playerO.name}: ${playerO.score.count}`
+            xScore.textContent = `${playerX.name}: ${playerX.score.count}`
         },
         stop: function (wich) {
 
-            if (wich == "draw") {
-                gameSquare.forEach((e, i) => {
-                    e.textContent = game.gameBoard[i]
-                }
-                )
-                alert("BARABARA")
-            } else {
-                gameSquare.forEach((e, i) => {
-                    e.textContent = game.gameBoard[i]
-                }
-                )
-                alert(`${wich.name}`)
-                wich.score.addScore()
-            }
             this.gameBoard = [
                 "", "", "",
                 "", "", "",
                 "", "", ""
             ]
             this.turn.count = 0
+
+            if (wich == "draw") {
+                gameSquare.forEach((e, i) => {
+                    e.textContent = game.gameBoard[i]
+                }
+                )
+                this.drawScore++
+                alert("BARABARA")
+            } else {
+                wich.score.addScore()
+                gameSquare.forEach((e, i) => {
+                    e.textContent = game.gameBoard[i]
+                }
+                )
+                alert(`${wich.name}`)
+            }
+
+            this.updateScore()
+        },
+        restart: function () {
+            this.drawScore = 0
+            playerO.score.count = 0
+            playerX.score.count = 0
         }
     }
 
@@ -191,9 +221,12 @@
 
     let startBtn = document.getElementById("start")
 
+    let drawScore = document.getElementById("draw-score")
+    let oScore = document.getElementById("o-score")
+    let xScore = document.getElementById("x-score")
+
+
     let gameSquare = document.querySelectorAll(".game-square")
-
-
 
     gameSquare.forEach((e, i) => {
         e.addEventListener("click", () => {
@@ -212,7 +245,7 @@
 
     // for o
     oHmnBtn.addEventListener("click", () => {
-        if (oNameInpt.value != "") {
+        if (oNameInpt.value != "" && xNameInpt.value != oNameInpt.value) {
             game.oName = oNameInpt.value
             game.oIsHuman = "Human"
             oHmnBtn.style.backgroundColor = "white"
@@ -220,12 +253,12 @@
             oAiBtn.style.backgroundColor = "black"
             oAiBtn.style.color = "white"
         } else {
-            alert("You must be enter a name.")
+            alert("You must be enter a name. And they must be different.")
         }
     })
 
     oAiBtn.addEventListener("click", () => {
-        if (oNameInpt.value != "") {
+        if (oNameInpt.value != "" && xNameInpt.value != oNameInpt.value) {
             game.oName = oNameInpt.value
             game.oIsHuman = "Ai"
             oAiBtn.style.backgroundColor = "white"
@@ -233,14 +266,14 @@
             oHmnBtn.style.backgroundColor = "black"
             oHmnBtn.style.color = "white"
         } else {
-            alert("You must be enter a name.")
+            alert("You must be enter a name. And they must be different.")
         }
     })
 
     // for x
 
     xHmnBtn.addEventListener("click", () => {
-        if (xNameInpt.value != "") {
+        if (xNameInpt.value != "" && xNameInpt.value != oNameInpt.value) {
             game.xName = xNameInpt.value
             game.xIsHuman = "Human"
             xHmnBtn.style.backgroundColor = "white"
@@ -248,12 +281,12 @@
             xAiBtn.style.backgroundColor = "black"
             xAiBtn.style.color = "white"
         } else {
-            alert("You must be enter a name.")
+            alert("You must be enter a name. And they must be different.")
         }
     })
 
     xAiBtn.addEventListener("click", () => {
-        if (xNameInpt.value != "") {
+        if (xNameInpt.value != "" && xNameInpt.value != oNameInpt.value) {
             game.xName = xNameInpt.value
             game.xIsHuman = "Ai"
             xAiBtn.style.backgroundColor = "white"
@@ -261,7 +294,7 @@
             xHmnBtn.style.backgroundColor = "black"
             xHmnBtn.style.color = "white"
         } else {
-            alert("You must be enter a name.")
+            alert("You must be enter a name. And they must be different.")
         }
     })
 
@@ -272,8 +305,16 @@
 
     startBtn.addEventListener("click", () => {
 
+        game.drawScore = 0
+
+        gameSquare.forEach((e, i) => {
+            e.textContent = game.gameBoard[i]
+        })
+
         playerX = game.makePlayer(game.xName, game.xIsHuman, game.xXo)
         playerO = game.makePlayer(game.oName, game.oIsHuman, game.oXo)
+
+        game.updateScore()
 
         if (game.xIsHuman != null && game.oIsHuman != null) {
             main.classList.add("vanish")
@@ -284,7 +325,9 @@
                 }, 100)
 
 
-                game.start(playerX)
+                if (playerX.isHuman == "Ai") {
+                    game.start(playerX)
+                }
 
 
             }, 510);
@@ -321,5 +364,27 @@
         game.turn.count = 0
 
     })
+
+    let resBtn = document.getElementById("res-btn")
+
+    resBtn.addEventListener("click", () => {
+        game.restart()
+        game.updateScore()
+    })
+
+    let cltBtn = document.getElementById("clr-btn")
+
+    cltBtn.addEventListener("click", () => {
+        game.gameBoard = [
+            "", "", "",
+            "", "", "",
+            "", "", ""
+        ]
+        game.turn.count = 0
+        gameSquare.forEach((e, i) => {
+            e.textContent = game.gameBoard[i]
+        })
+    })
+
 
 })()
