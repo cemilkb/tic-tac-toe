@@ -197,6 +197,9 @@
             }
 
             this.updateScore()
+            if (playerX.isHuman == "Ai") {
+                game.start(playerX)
+            }
         },
         restart: function () {
             this.drawScore = 0
@@ -372,9 +375,9 @@
         game.updateScore()
     })
 
-    let cltBtn = document.getElementById("clr-btn")
+    let clrtBtn = document.getElementById("clr-btn")
 
-    cltBtn.addEventListener("click", () => {
+    clrtBtn.addEventListener("click", () => {
         game.gameBoard = [
             "", "", "",
             "", "", "",
@@ -384,6 +387,11 @@
         gameSquare.forEach((e, i) => {
             e.textContent = game.gameBoard[i]
         })
+
+        if (playerX.isHuman == "Ai") {
+            game.start(playerX)
+        }
+
     })
 
 
