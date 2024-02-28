@@ -27,7 +27,16 @@
             return false
         },
         choice: "",
+        aiStop: false,
         humanPlay: function (wich) {
+
+            if (wich == "O" && playerX.isHuman == "Ai" || wich == "X" && playerO.isHuman == "Ai") {
+
+                gameSquare.forEach(e => {
+                    e.classList.add("no-click")
+                })
+
+            }
 
             this.gameBoard[this.choice] = wich
 
@@ -37,34 +46,23 @@
                 })
             }, 100)
 
-            if (wich == "X" && playerO.isHuman == "Ai") {
-                this.start(playerO)
-            } else if (wich == "O" && playerX.isHuman == "Ai") {
-                this.start(playerX)
-            }
-
+            setTimeout(() => {
+                aiVsAi()
+            }, 500)
         },
+        aiChoose: Math.floor(Math.random() * 9),
         aiPlay: function (wich) {
 
-            let choose = Math.floor(Math.random() * 9)
-            if (this.isEmpty(choose) == true) {
-                game.gameBoard[choose] = wich
-            } else {
-                return this.aiPlay(wich)
-            }
+            gameSquare.forEach(e => {
+                e.classList.remove("no-click")
+            })
+
+            game.gameBoard[this.aiChoose] = wich
+
 
             gameSquare.forEach((e, i) => {
                 e.textContent = game.gameBoard[i]
             })
-
-            setTimeout(() => {
-                if (wich == "X" && playerO.isHuman == "Ai") {
-                    this.start(playerO)
-                } else if (wich == "O" && playerX.isHuman == "Ai") {
-                    this.start(playerX)
-                }
-
-            }, 1000)
 
 
         },
@@ -112,10 +110,11 @@
                     this.humanPlay(wich.xo)
                 }
             } else {
-                this.turn.addTurn()
-                if (game.isDraw() == false && game.isWin(wich.xo) == false) {
+                if (this.isEmpty(this.aiChoose) != false) {
+                    this.turn.addTurn()
                     game.aiPlay(wich.xo)
                 }
+
             }
 
         },
@@ -135,35 +134,27 @@
         },
         start: function (players) {
 
-            this.updateScore()
-
-            if (players == playerX) {
-
-                this.play(playerX)
-
-            } else if (players == playerO) {
-
-                this.play(playerO)
-
+            this.play(players)
+            if (this.isWin(players.xo) == false && this.isDraw() == false && playerO.isHuman == "Ai" && playerX.isHuman == "Ai") {
+                setTimeout(() => { aiVsAi() }, 500)
             }
-
-
             setTimeout(() => {
                 if (this.isWin(players.xo) == true) {
                     this.stop(players)
+                } else {
+
+                    setTimeout(() => {
+
+                        if (this.isDraw() == true) {
+
+                            this.stop("draw")
+
+                        }
+
+
+                    }, 100)
                 }
-            }, 200)
-            if (this.isWin(players.xo) != true) {
-
-                setTimeout(() => {
-
-                    if (this.isDraw() == true) {
-
-                        this.stop("draw")
-
-                    }
-                }, 400)
-            }
+            }, 100)
 
         },
         updateScore: function () {
@@ -171,35 +162,48 @@
             oScore.textContent = `${playerO.name}: ${playerO.score.count}`
             xScore.textContent = `${playerX.name}: ${playerX.score.count}`
         },
+        isFinish: false,
         stop: function (wich) {
+            gameSquare.forEach(e => {
+                e.classList.remove("no-click")
+            })
+            setTimeout(() => {
+                if (wich == "draw") {
 
-            this.gameBoard = [
-                "", "", "",
-                "", "", "",
-                "", "", ""
-            ]
-            this.turn.count = 0
 
-            if (wich == "draw") {
+                    alert("BARABARA")
+
+                    this.drawScore++
+                    this.updateScore()
+
+
+
+                } else {
+
+                    alert(`${wich.name}`)
+
+                    wich.score.addScore()
+                    this.updateScore()
+
+
+
+                }
+            }, 200)
+
+            setTimeout(() => {
+                this.gameBoard = [
+                    "", "", "",
+                    "", "", "",
+                    "", "", ""
+                ]
                 gameSquare.forEach((e, i) => {
                     e.textContent = game.gameBoard[i]
                 }
                 )
-                this.drawScore++
-                alert("BARABARA")
-            } else {
-                wich.score.addScore()
-                gameSquare.forEach((e, i) => {
-                    e.textContent = game.gameBoard[i]
-                }
-                )
-                alert(`${wich.name}`)
-            }
+                this.turn.count = 0
 
-            this.updateScore()
-            if (playerX.isHuman == "Ai") {
-                game.start(playerX)
-            }
+            }, 600)
+
         },
         restart: function () {
             this.drawScore = 0
@@ -209,6 +213,22 @@
     }
 
 
+    // Ai vs Ai
+
+    function aiVsAi() {
+        console.log(game.turn.count)
+        if (game.isEmpty(game.aiChoose) == false) {
+            game.aiChoose = Math.floor(Math.random() * 9)
+            return aiVsAi()
+        } else {
+            if (game.turn.count % 2 == 0) {
+                game.start(playerX)
+            } else {
+                game.start(playerO)
+            }
+        }
+
+    }
     // DOM
 
     let main = document.querySelector(".main")
@@ -240,6 +260,7 @@
             } else {
                 game.start(playerO)
             }
+
 
         })
     })
@@ -328,10 +349,11 @@
                 }, 100)
 
 
-                if (playerX.isHuman == "Ai") {
+                if (playerX.isHuman == "Ai" && playerO.isHuman == "Human") {
                     game.start(playerX)
+                } else if (playerX.isHuman == "Ai" && playerO.isHuman == "Ai") {
+                    aiVsAi()
                 }
-
 
             }, 510);
 
@@ -388,9 +410,7 @@
             e.textContent = game.gameBoard[i]
         })
 
-        if (playerX.isHuman == "Ai") {
-            game.start(playerX)
-        }
+
 
     })
 
