@@ -403,10 +403,20 @@
             e.textContent = game.gameBoard[i]
         })
 
-        if (playerO.isHuman == "Human" || playerX.isHuman == "Human") {
+        if (playerO.isHuman != "Ai" || playerX.isHuman != "Ai") {
             gameSquare.forEach(e => {
                 e.classList.remove("no-click")
             })
+        }
+
+        if (playerX.isHuman == "Ai" && playerO.isHuman == "Human") {
+            game.start(playerX)
+        } else if (playerX.isHuman == "Ai" && playerO.isHuman == "Ai") {
+            gameSquare.forEach(e => {
+                e.classList.add("no-click")
+            })
+            aiVsAi()
+
         }
 
     })
@@ -441,6 +451,16 @@
         }
         )
         game.turn.count = 0
+
+        if (playerX.isHuman == "Ai" && playerO.isHuman == "Human") {
+            game.start(playerX)
+        } else if (playerX.isHuman == "Ai" && playerO.isHuman == "Ai") {
+            gameSquare.forEach(e => {
+                e.classList.add("no-click")
+            })
+            aiVsAi()
+
+        }
 
         dialog.close()
     })
