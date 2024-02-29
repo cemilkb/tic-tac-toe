@@ -181,12 +181,27 @@
                     this.drawScore++
                     this.updateScore()
 
+                    diaWins.textContent = "NO ONE WİN SHAME IT'S DRAW"
+                    diaXo.textContent = "XOXO"
+                    diaScore.textContent = `With this one draw score is ${this.drawScore}.`
+                    congrats.textContent = `!!! NO ONE CAN SURVIVE SHAME ALL OF YOU !!!`
+
                     dialog.showModal()
 
                 } else {
 
                     wich.score.addScore()
                     this.updateScore()
+
+                    if (wich.xo == "O") {
+                        diaWins.textContent = "EMPERIUM WINS !!!"
+                        congrats.textContent = `Congrats '${wich.name.toUpperCase()}' you have done your job. Finnaly emperium takes the control.`
+                    } else {
+                        diaWins.textContent = "REBEL WINS !!!"
+                        congrats.textContent = `Congrats '${wich.name.toUpperCase()}' you have done your job. Finnaly rebels takes their freedom.`
+                    }
+                    diaXo.textContent = `${wich.xo}`
+                    diaScore.textContent = `With this one u have ${wich.score.count} win.`
 
                     dialog.showModal()
 
@@ -240,10 +255,21 @@
 
     let gameSquare = document.querySelectorAll(".game-square")
 
+    function mouseOver() {
+        this.style.backgroundColor = "red"
+    }
+
     gameSquare.forEach((e, i) => {
+        e.addEventListener("mouseover", mouseOver)
+        e.addEventListener("mouseout", () => {
+            e.style.backgroundColor = "black"
+        })
+        e.addEventListener("click", () => {
+            e.removeEventListener("mouseover", mouseOver)
+        })
         e.addEventListener("click", () => {
             game.choice = i
-
+            e.style.backgroundColor = "black"
             if (game.turn.count % 2 == 0) {
                 game.start(playerX)
             } else {
@@ -426,6 +452,10 @@
     const dialog = document.querySelector("dialog");
     let dialogClose = document.getElementById("dia-close");
     let dialogRestart = document.getElementById("dia-res");
+    let diaWins = document.getElementById("dia-wins")
+    let diaXo = document.getElementById("dia-xo")
+    let diaScore = document.getElementById("dia-score")
+    let congrats = document.getElementById("congrats")
 
     dialogClose.addEventListener("click", () => {
 
