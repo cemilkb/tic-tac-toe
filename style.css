@@ -7,15 +7,15 @@
 :root {
     --ice: rgba(127, 255, 255);
     --iceo: rgba(127, 255, 255, 0.105);
-    --rebel: hsl(0, 100%, 50%);
-    --emperium: #F8DE22;
+    --rebel: #ec6f6f;
+    --emperium: #fff290;
 }
 
 
 body {
     background-color: black;
     color: white;
-
+    overflow: hidden;
 }
 
 .main {
@@ -23,6 +23,17 @@ body {
     overflow: hidden;
     opacity: 1;
     transition: all 0.5s;
+    font-size: 1vw;
+}
+
+
+@keyframes head {
+
+    50% {
+        text-shadow: var(--ice) 0px 0px 5px, var(--ice) 0px 0px 10px, var(--ice) 0px 0px 15px, var(--ice)0px 0px 25px;
+        color: black;
+    }
+
 }
 
 .heading {
@@ -30,29 +41,70 @@ body {
     text-align: center;
     margin-top: 2%;
     margin-bottom: 2%;
+    animation: head;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+}
+
+.reb {
+
+    text-shadow: var(--rebel) 0px 0px 5px, var(--rebel) 0px 0px 10px, var(--rebel) 0px 0px 15px, var(--rebel)0px 0px 25px;
+    color: black;
+}
+
+#rebel {
+    box-shadow: var(--rebel) 0px 0px 5px, var(--rebel) 0px 0px 10px, var(--rebel) 0px 0px 15px, var(--rebel)0px 0px 25px;
+    border-color: var(--rebel);
+    color: var(--rebel);
+    text-shadow: 0px 0px 10px var(--rebel);
+}
+
+#o-name {
+    background-color: hsla(53, 100%, 78%, 0.161);
+    border: 1px solid var(--emperium);
+    outline: none;
+}
+
+#x-name{
+    
+    background-color: hsla(0, 77%, 68%, 0.161);
+    border: 1px solid var(--rebel);
+    outline: none;
+}
+
+.emp {
+    text-shadow: var(--emperium) 0px 0px 5px, var(--emperium) 0px 0px 10px, var(--emperium) 0px 0px 15px, var(--emperium)0px 0px 25px;
+    color: black;
+}
+
+#emperium {
+    box-shadow: var(--emperium) 0px 0px 5px, var(--emperium) 0px 0px 10px, var(--emperium) 0px 0px 15px, var(--emperium)0px 0px 25px;
+    border-color: var(--emperium);
+    color: var(--emperium);
+    text-shadow: 0px 0px 10px var(--emperium);
 }
 
 .choose-section {
     display: flex;
     justify-content: center;
-    gap: 70px;
+    gap: 5vw;
 }
 
 .choose {
     margin-top: 5px;
-    width: 320px;
-    height: 400px;
+    width: 20vw;
+    height: 57vh;
     border: 2px solid white;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 2vh;
 }
 
 .choose>h1 {
     text-align: center;
-    font-size: 50px;
+    font-size: 2.5vw;
     margin-top: 5px;
 }
 
@@ -60,14 +112,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 20px;
+    font-size: 2.4vw;
 }
 
 .choose>.name-inpt>input {
     background-color: hsl(0, 0%, 5%);
     color: white;
     padding: 3px 4px;
-    font-size: 15px;
+    font-size: 1vw;
     border: 2px dodgerblue hsl(0, 0%, 100%);
     border-radius: 5px;
     margin-top: 5px;
@@ -75,11 +127,11 @@ body {
 
 .choose-btn {
     display: flex;
-    gap: 50px;
+    gap: 3vw;
 }
 
 .choose-btn>button {
-    width: 70px;
+    width: 5vw;
     background-color: hsl(39, 77%, 0%);
     color: white;
     border-radius: 5px;
@@ -92,9 +144,9 @@ body {
 }
 
 .choose>p {
-    height: 170px;
+    height: 24vh;
     overflow: auto;
-    width: 270px;
+    width: 18vw;
     text-align: center;
 }
 
@@ -110,11 +162,12 @@ body {
 
 .story {
     overflow: auto;
-    width: 500px;
-    height: 426px;
+    width: 38vw;
+    height: 60vh;
     margin-top: 5px;
     padding: 10px;
     text-align: center;
+    text-shadow: 0px 0px 5px white;
 }
 
 .story>span {
@@ -152,18 +205,11 @@ body {
 
 button:hover {
     box-shadow: 0px 0px 10px 1px white;
+    scale: 1.05;
 }
 
 button:active {
     scale: 0.9;
-}
-
-#home-btn:hover {
-    scale: 1.05;
-    box-shadow: 0px 0px 10px 1px var(--ice);
-    border-color: var(--ice);
-    color: rgba(127, 255, 255, 0.393);
-    text-shadow: var(--ice) 1px 0 10px;
 }
 
 .clicked {
@@ -218,7 +264,7 @@ button:active {
 
 @keyframes game-div {
     50% {
-        text-shadow: white 0px 0px 30px
+        text-shadow: var(--ice) 0px 0px 30px
     }
 }
 
@@ -231,7 +277,7 @@ button:active {
     font-size: 3vw;
     font-weight: bolder;
     animation-name: game-div;
-    animation-duration: 4s;
+    animation-duration: 3s;
     animation-iteration-count: infinite;
 }
 
@@ -244,9 +290,26 @@ button:active {
     text-align: center;
 }
 
+#draw-score {
+    font-size: 2vw;
+    font-style: italic;
+    text-shadow: 0px 0px 5px var(--ice), 0px 0px 10px var(--ice), 0px 0px 15px var(--ice), 0px 0px 25px var(--iceo), 0px 0px 35px var(--iceo);
+    color: rgba(255, 255, 255, 0.65);
+}
 
+#x-score {
+    font-size: 2vw;
+    font-style: italic;
+    text-shadow: 0px 0px 5px var(--rebel), 0px 0px 10px var(--rebel), 0px 0px 15px var(--rebel), 0px 0px 25px var(--rebel), 0px 0px 35px var(--rebel);
+    color: rgba(255, 255, 255, 0.65);
+}
 
-
+#o-score {
+    font-size: 2vw;
+    font-style: italic;
+    text-shadow: 0px 0px 5px var(--emperium), 0px 0px 10px var(--emperium), 0px 0px 15px var(--emperium), 0px 0px 25px var(--emperium), 0px 0px 35px var(--emperium);
+    color: rgba(255, 255, 255, 0.65);
+}
 
 .vanish {
     opacity: 0;
@@ -267,11 +330,15 @@ dialog {
     margin: auto;
     height: 50vh;
     width: 50vw;
-    background-color: rgba(0, 0, 0, 0.563);
+    background-color: rgba(0, 0, 0, 0.95);
     border-radius: 5px;
     border: 2px solid rgb(179, 231, 245);
     color: white;
     overflow: hidden;
+
+    animation-name: game-div;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
 
 .inside-dia {
@@ -279,5 +346,26 @@ dialog {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 50px;
+    gap: 2vw;
+    padding-top: 1vw;
+    box-sizing: border-box;
+    font-size: 1vw;
+}
+
+.dia-btn {
+    display: flex;
+    gap: 1vw;
+}
+
+.dia-btn>button {
+    padding: 5px 25px;
+    font-size: 30px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    transition: all 0.4s;
+    width: 11vw;
+    font-size: 1.5vw;
+    text-shadow: 0px 0px 5px var(--ice);
 }
