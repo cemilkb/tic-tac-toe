@@ -219,6 +219,30 @@ button:active {
     scale: 0;
 }
 
-.no-click{
+.no-click {
     pointer-events: none;
+}
+
+/* MODAL */
+
+::backdrop {
+    background-color: rgba(1, 2, 47, 0.43);
+}
+
+dialog {
+    margin: auto;
+    height: 50vh;
+    width: 50vw;
+    background-color: rgba(0, 0, 0, 0.563);
+    border-radius: 5px;
+    border: 2px solid rgb(179, 231, 245);
+    color: white;
+}
+
+.inside-dia {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
 }

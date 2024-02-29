@@ -53,9 +53,11 @@
         aiChoose: Math.floor(Math.random() * 9),
         aiPlay: function (wich) {
 
-            gameSquare.forEach(e => {
-                e.classList.remove("no-click")
-            })
+            if (playerO.isHuman == "Human" || playerX.isHuman == "Human") {
+                gameSquare.forEach(e => {
+                    e.classList.remove("no-click")
+                })
+            }
 
             game.gameBoard[this.aiChoose] = wich
 
@@ -134,27 +136,29 @@
         },
         start: function (players) {
 
-            this.play(players)
-            if (this.isWin(players.xo) == false && this.isDraw() == false && playerO.isHuman == "Ai" && playerX.isHuman == "Ai") {
-                setTimeout(() => { aiVsAi() }, 500)
-            }
-            setTimeout(() => {
-                if (this.isWin(players.xo) == true) {
-                    this.stop(players)
-                } else {
-
-                    setTimeout(() => {
-
-                        if (this.isDraw() == true) {
-
-                            this.stop("draw")
-
-                        }
-
-
-                    }, 100)
+            if (this.isEmpty() == false && this.isWin("O") == false && this.isWin("X") == false) {
+                this.play(players)
+                if (this.isWin(players.xo) == false && this.isDraw() == false && playerO.isHuman == "Ai" && playerX.isHuman == "Ai") {
+                    setTimeout(() => { aiVsAi() }, 500)
                 }
-            }, 100)
+                setTimeout(() => {
+                    if (this.isWin(players.xo) == true) {
+                        this.stop(players)
+                    } else {
+
+                        setTimeout(() => {
+
+                            if (this.isDraw() == true) {
+
+                                this.stop("draw")
+
+                            }
+
+
+                        }, 100)
+                    }
+                }, 100)
+            }
 
         },
         updateScore: function () {
@@ -164,45 +168,30 @@
         },
         isFinish: false,
         stop: function (wich) {
-            gameSquare.forEach(e => {
-                e.classList.remove("no-click")
-            })
+
+            if (playerO.isHuman == "Human" || playerX.isHuman == "Human") {
+                gameSquare.forEach(e => {
+                    e.classList.remove("no-click")
+                })
+            }
+
             setTimeout(() => {
                 if (wich == "draw") {
-
-
-                    alert("BARABARA")
 
                     this.drawScore++
                     this.updateScore()
 
-
+                    dialog.showModal()
 
                 } else {
-
-                    alert(`${wich.name}`)
 
                     wich.score.addScore()
                     this.updateScore()
 
-
+                    dialog.showModal()
 
                 }
             }, 200)
-
-            setTimeout(() => {
-                this.gameBoard = [
-                    "", "", "",
-                    "", "", "",
-                    "", "", ""
-                ]
-                gameSquare.forEach((e, i) => {
-                    e.textContent = game.gameBoard[i]
-                }
-                )
-                this.turn.count = 0
-
-            }, 600)
 
         },
         restart: function () {
@@ -352,7 +341,11 @@
                 if (playerX.isHuman == "Ai" && playerO.isHuman == "Human") {
                     game.start(playerX)
                 } else if (playerX.isHuman == "Ai" && playerO.isHuman == "Ai") {
+                    gameSquare.forEach(e => {
+                        e.classList.add("no-click")
+                    })
                     aiVsAi()
+
                 }
 
             }, 510);
@@ -410,9 +403,46 @@
             e.textContent = game.gameBoard[i]
         })
 
-
+        if (playerO.isHuman == "Human" || playerX.isHuman == "Human") {
+            gameSquare.forEach(e => {
+                e.classList.remove("no-click")
+            })
+        }
 
     })
 
+    // UI DESING
+
+    const dialog = document.querySelector("dialog");
+    let dialogClose = document.getElementById("dia-close");
+    let dialogRestart = document.getElementById("dia-res");
+
+    dialogClose.addEventListener("click", () => {
+
+        gameSquare.forEach(e => {
+            e.classList.add("no-click")
+        })
+
+        dialog.close()
+
+    })
+
+    dialogRestart.addEventListener("click", () => {
+
+
+
+        game.gameBoard = [
+            "", "", "",
+            "", "", "",
+            "", "", ""
+        ]
+        gameSquare.forEach((e, i) => {
+            e.textContent = game.gameBoard[i]
+        }
+        )
+        game.turn.count = 0
+
+        dialog.close()
+    })
 
 })()
