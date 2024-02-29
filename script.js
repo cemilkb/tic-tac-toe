@@ -256,7 +256,7 @@
     let gameSquare = document.querySelectorAll(".game-square")
 
     function mouseOver() {
-        this.style.backgroundColor = "red"
+        this.style.backgroundColor = "var(--iceo)"
     }
 
     gameSquare.forEach((e, i) => {
@@ -272,8 +272,12 @@
             e.style.backgroundColor = "black"
             if (game.turn.count % 2 == 0) {
                 game.start(playerX)
+                e.style.color = "var(--rebel)"
+                e.style.textShadow = "var(--rebel) 0px 0px 30px;"
             } else {
                 game.start(playerO)
+                e.style.color = "var(--emperium)"
+                e.style.textShadow = "var(--emperium) 0px 0px 30px;"
             }
 
 
@@ -445,6 +449,10 @@
 
         }
 
+        gameSquare.forEach(e => {
+            e.addEventListener("mouseover", mouseOver)
+        })
+
     })
 
     // UI DESING
@@ -491,6 +499,10 @@
             aiVsAi()
 
         }
+
+        gameSquare.forEach(e => {
+            e.addEventListener("mouseover", mouseOver)
+        })
 
         dialog.close()
     })

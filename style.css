@@ -1,12 +1,21 @@
 * {
     margin: 0px;
     padding: 0px;
+    font-family: "Prompt", sans-serif;
 }
+
+:root {
+    --ice: rgba(127, 255, 255);
+    --iceo: rgba(127, 255, 255, 0.105);
+    --rebel: hsl(0, 100%, 50%);
+    --emperium: #F8DE22;
+}
+
 
 body {
     background-color: black;
     color: white;
-    overflow: hidden;
+
 }
 
 .main {
@@ -149,6 +158,14 @@ button:active {
     scale: 0.9;
 }
 
+#home-btn:hover {
+    scale: 1.05;
+    box-shadow: 0px 0px 10px 1px var(--ice);
+    border-color: var(--ice);
+    color: rgba(127, 255, 255, 0.393);
+    text-shadow: var(--ice) 1px 0 10px;
+}
+
 .clicked {
     background-color: white;
     color: black;
@@ -190,15 +207,32 @@ button:active {
 }
 
 .game-area {
-    width: 50%;
-    height: 90%;
+    width: 49.5vw;
+    height: 61.5vh;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    border: 1px solid white;
+    grid-template-columns: 16.5vw 16.5vw 16.5vw;
+    grid-template-rows: 20, 5vh 20, 5vh 20, 5vh;
+    border: 1px solid var(--ice);
+}
+
+
+@keyframes game-div {
+    50% {
+        text-shadow: white 0px 0px 30px
+    }
 }
 
 .game-area>div {
-    border: 1px solid white;
+    border: 1px solid rgba(127, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px 1px var(--ice);
+    font-size: 3vw;
+    font-weight: bolder;
+    animation-name: game-div;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
 }
 
 .yard-score {
@@ -237,6 +271,7 @@ dialog {
     border-radius: 5px;
     border: 2px solid rgb(179, 231, 245);
     color: white;
+    overflow: hidden;
 }
 
 .inside-dia {
