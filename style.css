@@ -140,7 +140,7 @@ body {
     text-align: center;
     font-size: 15px;
     transition: all 0.5s;
-
+    font-size: 1vw;
 }
 
 .choose>p {
