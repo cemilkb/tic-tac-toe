@@ -65,8 +65,8 @@ body {
     outline: none;
 }
 
-#x-name{
-    
+#x-name {
+
     background-color: hsla(0, 77%, 68%, 0.161);
     border: 1px solid var(--rebel);
     outline: none;
@@ -248,17 +248,13 @@ button:active {
 
 .yard-area {
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .game-area {
-    width: 49.5vw;
-    height: 61.5vh;
     display: grid;
-    grid-template-columns: 16.5vw 16.5vw 16.5vw;
-    grid-template-rows: 20, 5vh 20, 5vh 20, 5vh;
-    border: 1px solid var(--ice);
+    grid-template-columns: 20vw 20vw 20vw;
+    grid-template-rows: 20vh 20vh 20vh;
+    margin: auto;
 }
 
 
